@@ -29,3 +29,7 @@ ddt~=1.4.2
 
 django-ses
 botocore~=1.19.63
+
+xlrd
+
+openpyxl
