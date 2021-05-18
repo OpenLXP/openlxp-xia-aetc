@@ -87,7 +87,7 @@ class Command(BaseCommand):
             Metadata is extracted from XSR and stored in Metadata Ledger
         """
         source_df = get_source_metadata()
-        # source_data_dict = add_publisher_to_source(source_df)
-        # extract_metadata_using_key(source_data_dict)
+        source_data_dict = add_publisher_to_source(source_df)
+        extract_metadata_using_key(source_data_dict)
 
         logger.info('MetadataLedger updated with extracted data from XSR')

@@ -23,7 +23,7 @@ def get_key_dict(key_value, key_value_hash):
 def get_source_metadata_key_value(data_dict):
     """Function to create key value for source metadata """
     # field names depend on source data and SOURCESYSTEM is system generated
-    field = ['key', 'SOURCESYSTEM']
+    field = ['Course ID', 'SOURCESYSTEM']
     field_values = []
 
     for item in field:
