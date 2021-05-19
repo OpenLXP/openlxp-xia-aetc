@@ -3,6 +3,7 @@ import hashlib
 import json
 import logging
 
+import pandas as pd
 from core.management.utils.xia_internal import (get_publisher_detail,
                                                 get_source_metadata_key_value)
 from core.management.utils.xsr_client import read_source_file
@@ -17,10 +18,21 @@ file_handler = logging.FileHandler('/opt/app/openlxp-xia-aetc/core/management'
 
 def get_source_metadata():
     """Retrieving source metadata"""
-    source_df = read_source_file()
-    if source_df.empty:
-        logger.warning("Source metadata is empty!")
-    return source_df
+
+    #  Retrieve metadata from agents as a list of sources
+    df_source_list = read_source_file()
+
+    # Iterate through the list of sources and extract metadata
+    for source_item in df_source_list:
+        logger.info('Loading metadata to be extracted from source')
+
+        # Changing null values to None for source dataframe
+        std_source_df = source_item.where(pd.notnull(source_item),
+                                          None)
+
+        if std_source_df.empty:
+            logger.error("Source metadata is empty!")
+        extract_metadata_using_key(std_source_df)
 
 
 def add_publisher_to_source(source_df):
@@ -61,8 +73,12 @@ def store_source_metadata(key_value, key_value_hash, hash_value, metadata):
         record_lifecycle_status='Active')
 
 
-def extract_metadata_using_key(source_data_dict):
+def extract_metadata_using_key(source_df):
     """Creating key, hash of key & hash of metadata """
+
+    # Convert source data to dictionary and add publisher to metadata
+    source_data_dict = add_publisher_to_source(source_df)
+
     logger.info('Setting record_status & deleted_date for updated record')
     logger.info('Getting existing records or creating new record to '
                 'MetadataLedger')
@@ -80,7 +96,7 @@ def extract_metadata_using_key(source_data_dict):
             if isinstance(o, datetime.datetime):
                 return o.__str__()
 
-        temp_val_convert = json.dumps(temp_val, default = myconverter)
+        temp_val_convert = json.dumps(temp_val, default=myconverter)
         temp_val_json = json.loads(temp_val_convert)
 
         if key:
@@ -96,8 +112,6 @@ class Command(BaseCommand):
         """
             Metadata is extracted from XSR and stored in Metadata Ledger
         """
-        source_df = get_source_metadata()
-        source_data_dict = add_publisher_to_source(source_df)
-        extract_metadata_using_key(source_data_dict)
+        get_source_metadata()
 
         logger.info('MetadataLedger updated with extracted data from XSR')
