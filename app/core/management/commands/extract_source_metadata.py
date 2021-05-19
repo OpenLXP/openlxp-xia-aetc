@@ -1,5 +1,7 @@
 import hashlib
 import logging
+import json
+import datetime
 
 from django.core.management.base import BaseCommand
 from django.utils import timezone
@@ -74,8 +76,17 @@ def extract_metadata_using_key(source_data_dict):
 
         # Call store function with key, hash of key, hash of metadata,
         # metadata
-        store_source_metadata(key['key_value'], key['key_value_hash'],
-                              hash_value, temp_val)
+
+        def myconverter(o):
+            if isinstance(o, datetime.datetime):
+                return o.__str__()
+
+        temp_val_convert = json.dumps(temp_val, default = myconverter)
+        temp_val_json = json.loads(temp_val_convert)
+
+        if key:
+            store_source_metadata(key['key_value'], key['key_value_hash'],
+                                  hash_value, temp_val_json)
 
 
 class Command(BaseCommand):

@@ -28,8 +28,9 @@ def get_source_metadata_key_value(data_dict):
 
     for item in field:
         if not data_dict.get(item):
-            logger.info('Field name ' + item + ' is missing for '
+            logger.error('Field name ' + item + ' is missing for '
                                                'key creation')
+            return None
         field_values.append(data_dict.get(item))
 
     # Key value creation for source metadata
