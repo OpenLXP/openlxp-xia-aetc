@@ -2,7 +2,6 @@ import json
 import logging
 
 import boto3
-
 from core.management.utils.xia_internal import dict_flatten
 from core.models import XIAConfiguration
 

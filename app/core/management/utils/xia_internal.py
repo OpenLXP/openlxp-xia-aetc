@@ -23,13 +23,13 @@ def get_key_dict(key_value, key_value_hash):
 def get_source_metadata_key_value(data_dict):
     """Function to create key value for source metadata """
     # field names depend on source data and SOURCESYSTEM is system generated
-    field = ['Course ID', 'SOURCESYSTEM']
+    field = ['Course ID', 'SOURCESYSTEM', 'Resp_Org_ID']
     field_values = []
 
     for item in field:
         if not data_dict.get(item):
             logger.error('Field name ' + item + ' is missing for '
-                                               'key creation')
+                                                'key creation')
             return None
         field_values.append(data_dict.get(item))
 

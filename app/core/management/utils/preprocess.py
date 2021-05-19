@@ -1,8 +1,9 @@
-import logging
-import boto3
-import pandas as pd
 import io
+import logging
+
+import boto3
 import numpy as np
+import pandas as pd
 from django.core.management.base import BaseCommand
 
 logger = logging.getLogger('dict_config_logger')
