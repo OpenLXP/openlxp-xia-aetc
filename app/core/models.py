@@ -11,11 +11,11 @@ class XIAConfiguration(models.Model):
                                  help_text='Enter the source file to extract '
                                            'data from.')
     source_metadata_schema = models.CharField(
-        default='aetc_source_validate_schema.json', max_length=200,
+        default='AETC_source_validate_schema.json', max_length=200,
         help_text='Enter the edX '
                   'schema file')
     source_target_mapping = models.CharField(
-        default='aetc_p2881_target_metadata_schema.json', max_length=200,
+        default='AETC_p2881_target_metadata_schema.json', max_length=200,
         help_text='Enter the schema '
                   'file to map '
                   'target.')

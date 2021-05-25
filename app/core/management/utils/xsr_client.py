@@ -49,7 +49,7 @@ def get_etca_bci():
     etca_bci_df = get_paragraph_data(etca_bci_df)
 
     # Adding Resp_Org_ID to metadata
-    etca_bci_df['Resp_Org_ID'] = 'ETCA_BCI'
+    etca_bci_df['SUB_SOURCESYSTEM'] = 'ETCA_BCI'
 
     return etca_bci_df
 
@@ -69,7 +69,7 @@ def get_etca_bci_aetc():
     etca_bci_aetc_df = get_paragraph_data(etca_bci_aetc_df)
 
     # Adding Resp_Org_ID to metadata
-    etca_bci_aetc_df['Resp_Org_ID'] = 'ETCA_BCI_AETC'
+    etca_bci_aetc_df['SUB_SOURCESYSTEM'] = 'ETCA_BCI_AETC'
 
     return etca_bci_aetc_df
 
