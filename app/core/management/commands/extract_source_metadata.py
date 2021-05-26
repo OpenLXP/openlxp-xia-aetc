@@ -2,6 +2,8 @@ import datetime
 import hashlib
 import json
 import logging
+import datetime
+import time
 
 import pandas as pd
 from core.management.utils.xia_internal import (get_publisher_detail,
@@ -29,7 +31,10 @@ def get_source_metadata():
         # Changing null values to None for source dataframe
         std_source_df = source_item.where(pd.notnull(source_item),
                                           None)
-
+        # my_list = std_source_df.columns.values.tolist()
+        # for item in my_list:
+        #     logger.info(std_source_df[item])
+        #     logger.info(type(std_source_df[item][2]))
         if std_source_df.empty:
             logger.error("Source metadata is empty!")
         extract_metadata_using_key(std_source_df)
@@ -94,7 +99,8 @@ def extract_metadata_using_key(source_df):
 
         def myconverter(o):
             if isinstance(o, datetime.datetime):
-                return o.__str__()
+                o = o.isoformat()
+                return o
 
         temp_val_convert = json.dumps(temp_val, default=myconverter)
         temp_val_json = json.loads(temp_val_convert)
