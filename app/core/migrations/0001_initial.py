@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('publisher', models.CharField(default='AETC', help_text='Enter the source file to extract data from.', max_length=200)),
-                ('source_metadata_schema', models.CharField(default='aetc_source_validate_schema.json', help_text='Enter the edX schema file', max_length=200)),
+                ('source_metadata_schema', models.CharField(default='aetc_source_validate_schema.json', help_text='Enter the AETC schema file', max_length=200)),
                 ('source_target_mapping', models.CharField(default='aetc_p2881_target_metadata_schema.json', help_text='Enter the schema file to map target.', max_length=200)),
                 ('target_metadata_schema', models.CharField(default='p2881_target_validation_schema.json', help_text='Enter the target schema file to validate from.', max_length=200)),
             ],

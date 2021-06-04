@@ -12,7 +12,7 @@ class XIAConfiguration(models.Model):
                                            'data from.')
     source_metadata_schema = models.CharField(
         default='AETC_source_validate_schema.json', max_length=200,
-        help_text='Enter the edX '
+        help_text='Enter the AETC '
                   'schema file')
     source_target_mapping = models.CharField(
         default='AETC_p2881_target_metadata_schema.json', max_length=200,
