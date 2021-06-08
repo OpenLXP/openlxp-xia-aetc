@@ -224,7 +224,7 @@ def update_flattened_object(str_obj, prefix, flatten_dict):
     flatten_dict.update({prefix: str_obj})
 
 
-def myconverter(o):
-    if isinstance(o, datetime.datetime):
-        o = o.isoformat()
-        return o
+def convert_date_to_isoformat(date):
+    if isinstance(date, datetime.datetime):
+        date = date.isoformat()
+    return date

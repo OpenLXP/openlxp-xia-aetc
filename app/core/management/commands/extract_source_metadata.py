@@ -8,7 +8,7 @@ from django.utils import timezone
 
 from core.management.utils.xia_internal import (get_publisher_detail,
                                                 get_source_metadata_key_value,
-                                                myconverter)
+                                                convert_date_to_isoformat)
 from core.management.utils.xsr_client import read_source_file
 from core.models import MetadataLedger
 
@@ -91,7 +91,8 @@ def extract_metadata_using_key(source_df):
         # Call store function with key, hash of key, hash of metadata,
         # metadata
 
-        temp_val_convert = json.dumps(temp_val, default=myconverter)
+        temp_val_convert = json.dumps(temp_val,
+                                      default=convert_date_to_isoformat)
         temp_val_json = json.loads(temp_val_convert)
         if key:
             store_source_metadata(key['key_value'], key['key_value_hash'],
