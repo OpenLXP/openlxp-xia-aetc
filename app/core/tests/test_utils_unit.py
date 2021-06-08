@@ -16,8 +16,7 @@ from core.management.utils.xia_internal import (dict_flatten,
                                                 replace_field_on_target_schema,
                                                 update_flattened_object)
 from core.management.utils.xis_client import get_xis_api_endpoint
-from core.management.utils.xsr_client import (get_xsr_api_endpoint,
-                                              read_source_file)
+from core.management.utils.xsr_client import (read_source_file)
 from core.management.utils.xss_client import (
     get_aws_bucket_name, get_required_fields_for_validation,
     get_source_validation_schema, get_target_metadata_for_transformation,
@@ -61,8 +60,8 @@ class UtilsTests(TestSetUp):
     def test_get_source_metadata_key_value(self, first_value, second_value):
         """Test key dictionary creation for source"""
         test_dict = {
-            'key': first_value,
-            'SOURCESYSTEM': second_value
+            'Course ID': first_value,
+            'SUB_SOURCESYSTEM': second_value
         }
 
         expected_key = first_value + '_' + second_value
@@ -104,7 +103,7 @@ class UtilsTests(TestSetUp):
 
         test_dict = {'Course': {
             'CourseCode': first_value,
-            'CourseProviderName': second_value
+            'AccreditedBy': second_value
         }}
 
         expected_key = first_value + '_' + second_value
@@ -345,18 +344,14 @@ class UtilsTests(TestSetUp):
 
     # Test cases for XSR_CLIENT
 
-    def test_get_xsr_endpoint(self):
-        """Test to check if XSR endpoint is present"""
-        result_xsr_endpoint = get_xsr_api_endpoint()
-        self.assertTrue(result_xsr_endpoint)
-
-    @patch('core.management.utils.xsr_client.extract_source',
-           return_value=dict({1: {'a': 'b'}}))
-    def test_read_source_file(self, extract):
+    def test_read_source_file(self):
         """test to check if data is present for extraction """
-
-        result_data = read_source_file()
-        self.assertIsInstance(result_data, pd.DataFrame)
+        with patch('core.management.utils.xsr_client.get_etca_bci',
+                   return_value=pd.DataFrame.from_dict(self.test_data)), \
+                patch('core.management.utils.xsr_client.get_etca_bci_aetc',
+                      return_value=pd.DataFrame.from_dict(self.test_data1)):
+            result_data = read_source_file()
+            self.assertIsInstance(result_data, list)
 
     # Test cases for XSS_CLIENT
 
