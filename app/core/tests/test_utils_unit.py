@@ -16,7 +16,7 @@ from core.management.utils.xia_internal import (dict_flatten,
                                                 replace_field_on_target_schema,
                                                 update_flattened_object)
 from core.management.utils.xis_client import get_xis_api_endpoint
-from core.management.utils.xsr_client import (read_source_file)
+from core.management.utils.xsr_client import read_source_file
 from core.management.utils.xss_client import (
     get_aws_bucket_name, get_required_fields_for_validation,
     get_source_validation_schema, get_target_metadata_for_transformation,

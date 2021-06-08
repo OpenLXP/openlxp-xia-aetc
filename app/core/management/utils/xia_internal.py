@@ -1,6 +1,7 @@
+import datetime
 import hashlib
 import logging
-import datetime
+
 from core.models import XIAConfiguration
 
 logger = logging.getLogger('dict_config_logger')
@@ -107,7 +108,6 @@ def get_target_metadata_key_value(data_dict):
 
     # Key dictionary creation for source metadata
     key = get_key_dict(key_value, key_value_hash)
-
     return key
 
 

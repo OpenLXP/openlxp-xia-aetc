@@ -1,16 +1,16 @@
 import hashlib
 import json
 import logging
-import datetime
-
 
 import pandas as pd
-from core.management.utils.xia_internal import (get_publisher_detail,
-                                                get_source_metadata_key_value)
-from core.management.utils.xsr_client import read_source_file
-from core.models import MetadataLedger
 from django.core.management.base import BaseCommand
 from django.utils import timezone
+
+from core.management.utils.xia_internal import (get_publisher_detail,
+                                                get_source_metadata_key_value,
+                                                myconverter)
+from core.management.utils.xsr_client import read_source_file
+from core.models import MetadataLedger
 
 logger = logging.getLogger('dict_config_logger')
 file_handler = logging.FileHandler('/opt/app/openlxp-xia-aetc/core/management'
@@ -75,7 +75,6 @@ def store_source_metadata(key_value, key_value_hash, hash_value, metadata):
 
 def extract_metadata_using_key(source_df):
     """Creating key, hash of key & hash of metadata """
-
     # Convert source data to dictionary and add publisher to metadata
     source_data_dict = add_publisher_to_source(source_df)
 
@@ -92,14 +91,8 @@ def extract_metadata_using_key(source_df):
         # Call store function with key, hash of key, hash of metadata,
         # metadata
 
-        def myconverter(o):
-            if isinstance(o, datetime.datetime):
-                o = o.isoformat()
-                return o
-
         temp_val_convert = json.dumps(temp_val, default=myconverter)
         temp_val_json = json.loads(temp_val_convert)
-
         if key:
             store_source_metadata(key['key_value'], key['key_value_hash'],
                                   hash_value, temp_val_json)

@@ -16,4 +16,3 @@ class XIAConfigurationAdmin(admin.ModelAdmin):
               'source_metadata_schema',
               'source_target_mapping',
               'target_metadata_schema']
-

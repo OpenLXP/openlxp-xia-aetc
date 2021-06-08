@@ -18,15 +18,15 @@ class TestSetUp(TestCase):
             "End_date": "9999-12-31T00:00:00-05:00",
             "test_name": "test name",
             "Start_date": "2017-03-28T00:00:00-04:00",
-            "key": "TestData 123",
+            "Course ID": "TestData 123",
             "SOURCESYSTEM": "AETC",
             "SUB_SOURCESYSTEM": "ETCA_BCI_AETC",
             "test_description": "test description",
         }
 
         self.key_value = "TestData 123_ETCA_BCI_AETC"
-        self.key_value_hash = "f1f0c8c3b622b58eddd8d6fa8555d994"
-        self.hash_value = "1d3cb1e2233b4917f72c78c144522a79"
+        self.key_value_hash = "cb16a5568d8d4f3f3be700015879b527"
+        self.hash_value = "717e1b165457c1f2872eb232c02c63e9"
 
         self.target_metadata = {
             "Course": {
@@ -54,13 +54,13 @@ class TestSetUp(TestCase):
         }
 
         self.target_key_value = "TestData 123_ETCA_BCI_AETC"
-        self.target_key_value_hash = "f1f0c8c3b622b58eddd8d6fa8555d994"
+        self.target_key_value_hash = "cb16a5568d8d4f3f3be700015879b527"
         self.target_hash_value = "df0b51d7b45ca29682e930d236963584"
         self.schema_data_dict = {
             'SOURCESYSTEM': 'Required',
             "SUB_SOURCESYSTEM": 'Required',
             'test_id': 'Optional',
-            'key': 'Required',
+            'Course ID': 'Required',
             'test_name': 'Required',
             'test_description': 'Required',
             'test_objective': 'Optional',
@@ -192,7 +192,7 @@ class TestSetUp(TestCase):
                 "CourseProviderName": "SOURCESYSTEM",
                 "AccreditedBy": "SUB_SOURCESYSTEM",
                 "DepartmentName": "",
-                "CourseCode": "key",
+                "CourseCode": "Course ID",
                 "CourseTitle": "test_name",
                 "CourseDescription": "test_description",
                 "CourseAudience": "test_attendies",
@@ -218,13 +218,14 @@ class TestSetUp(TestCase):
             "End_date": "9999-12-31T00:00:00-05:00",
             "test_name": "",
             "Start_date": "",
-            "key": "TestData 1234",
+            "Course ID": "TestData 1234",
             "SOURCESYSTEM": "AETC",
+            "SUB_SOURCESYSTEM": "ETCA_BCI_AETC",
             "test_description": "test description",
         }
 
         self.key_value_invalid = "TestData 1234_ETCA_BCI_AETC"
-        self.key_value_hash_invalid = "a54cd0fd0743771222f32ec125ab6b0c"
+        self.key_value_hash_invalid = "aa31438d506ede73a2a6a6971cda2ad4"
         self.hash_value_invalid = "f15860eed6e88ddfcce71059043f34a3"
 
         self.target_metadata_invalid = {
@@ -252,11 +253,12 @@ class TestSetUp(TestCase):
             }
         }
         self.target_key_value_invalid = "TestData 1234_ETCA_BCI_AETC"
-        self.target_key_value_hash_invalid = "a54cd0fd0743771222f32ec125ab6b0c"
+        self.target_key_value_hash_invalid = "aa31438d506ede73a2a6a6971cda2ad4"
         self.target_hash_value_invalid = "f15860eed6e88ddfcce71059043f34a3"
 
-        self.test_required_column_names = ['SOURCESYSTEM', 'key',
-                                           'Start_date', 'End_date']
+        self.test_required_column_names = ['SOURCESYSTEM', 'Course ID',
+                                           'Start_date', 'End_date',
+                                           'SUB_SOURCESYSTEM']
         self.test_data = {
             "key1": ["val1"],
             "key2": ["val2"],
