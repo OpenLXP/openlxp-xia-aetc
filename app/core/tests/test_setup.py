@@ -20,7 +20,7 @@ class TestSetUp(TestCase):
             "Start_date": "2017-03-28T00:00:00-04:00",
             "key": "TestData 123",
             "SOURCESYSTEM": "AETC",
-            "AccreditedBy": "ETCA_BCI_AETC",
+            "SUB_SOURCESYSTEM": "ETCA_BCI_AETC",
             "test_description": "test description",
         }
 
@@ -37,6 +37,7 @@ class TestSetUp(TestCase):
                 "CourseObjective": "test_data",
                 "CourseDescription": "test description",
                 "CourseProviderName": "AETC",
+                "AccreditedBy": "ETCA_BCI_AETC",
                 "CourseSpecialNotes": "test_data",
                 "CoursePrerequisites": "None",
                 "EstimatedCompletionTime": "4.5 days",
@@ -57,6 +58,7 @@ class TestSetUp(TestCase):
         self.target_hash_value = "df0b51d7b45ca29682e930d236963584"
         self.schema_data_dict = {
             'SOURCESYSTEM': 'Required',
+            "SUB_SOURCESYSTEM": 'Required',
             'test_id': 'Optional',
             'key': 'Required',
             'test_name': 'Required',
@@ -74,6 +76,7 @@ class TestSetUp(TestCase):
         self.target_data_dict = {
             'Course': {
                 'CourseProviderName': 'Required',
+                "AccreditedBy": 'Required',
                 'DepartmentName': 'Optional',
                 'CourseCode': 'Required',
                 'CourseTitle': 'Required',
@@ -131,6 +134,7 @@ class TestSetUp(TestCase):
                     "CourseObjective": "test_data",
                     "CourseDescription": "test_data",
                     "CourseProviderName": "AETC",
+                    "AccreditedBy": "ETCA_BCI_AETC",
                     "CourseSpecialNotes": "test_data",
                     "CoursePrerequisites": "None",
                     "EstimatedCompletionTime": "4.5 days",
@@ -162,6 +166,7 @@ class TestSetUp(TestCase):
                     "CourseObjective": "test_data",
                     "CourseDescription": "test_data",
                     "CourseProviderName": "AETC",
+                    "AccreditedBy": "ETCA_BCI_AETC",
                     "CourseSpecialNotes": "test_data",
                     "CoursePrerequisites": "None",
                     "EstimatedCompletionTime": "4.5 days",
@@ -185,6 +190,7 @@ class TestSetUp(TestCase):
         self.source_target_mapping = {
             "Course": {
                 "CourseProviderName": "SOURCESYSTEM",
+                "AccreditedBy": "SUB_SOURCESYSTEM",
                 "DepartmentName": "",
                 "CourseCode": "key",
                 "CourseTitle": "test_name",
@@ -230,6 +236,7 @@ class TestSetUp(TestCase):
                 "CourseObjective": "test_data",
                 "CourseDescription": "",
                 "CourseProviderName": "AETC",
+                "AccreditedBy": "ETCA_BCI_AETC",
                 "CourseSpecialNotes": "test_data",
                 "CoursePrerequisites": "None",
                 "EstimatedCompletionTime": "4.5 days",
@@ -251,6 +258,11 @@ class TestSetUp(TestCase):
         self.test_required_column_names = ['SOURCESYSTEM', 'key',
                                            'Start_date', 'End_date']
         self.test_data = {
+            "key1": ["val1"],
+            "key2": ["val2"],
+            "key3": ["val3"]}
+
+        self.test_data1 = {
             "key1": ["val1"],
             "key2": ["val2"],
             "key3": ["val3"]}

@@ -53,13 +53,16 @@ class CommandTests(TestSetUp):
 
     def test_get_source_metadata(self):
         """ Test to retrieving source metadata"""
-        with patch('core.management.utils.xsr_client'
-                   '.read_source_file')as read_obj:
+        with patch('core.management.commands.extract_source_metadata'
+                   '.read_source_file') as read_obj, patch(
+            'core.management.commands.extract_source_metadata'
+            '.extract_metadata_using_key', return_value=None) as \
+                mock_extract_obj:
             read_obj.return_value = read_obj
-            read_obj.return_value = pd.DataFrame.from_dict(self.test_data,
-                                                           orient='index')
-            return_from_function = get_source_metadata()
-            self.assertIsInstance(return_from_function, pd.DataFrame)
+            read_obj.return_value = [
+                pd.DataFrame.from_dict(self.test_data, orient='index')]
+            get_source_metadata()
+            self.assertEqual(mock_extract_obj.call_count, 1)
 
     def test_add_publisher_to_source(self):
         """Test for Add publisher column to source metadata and return
@@ -78,12 +81,18 @@ class CommandTests(TestSetUp):
     def test_extract_metadata_using_key(self):
         """Test to creating key, hash of key & hash of metadata"""
         data = {1: self.source_metadata}
-        with patch('core.management.commands.extract_source_metadata'
-                   '.get_source_metadata_key_value', return_value=None) as \
-                mock_get_source, \
-                patch('core.management.commands.extract_source_metadata'
-                      '.store_source_metadata',
-                      return_value=None) as mock_store_source:
+        with patch(
+                'core.management.commands.extract_source_metadata'
+                '.add_publisher_to_source',
+                return_value=data), \
+                patch(
+                    'core.management.commands.extract_source_metadata'
+                    '.get_source_metadata_key_value',
+                    return_value=None) as mock_get_source, \
+                patch(
+                    'core.management.commands.extract_source_metadata'
+                    '.store_source_metadata',
+                    return_value=None) as mock_store_source:
             mock_get_source.return_value = mock_get_source
             mock_get_source.exclude.return_value = mock_get_source
             mock_get_source.filter.side_effect = [
