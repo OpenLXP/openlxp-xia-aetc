@@ -1,6 +1,6 @@
 import hashlib
 import logging
-
+import datetime
 from core.models import XIAConfiguration
 
 logger = logging.getLogger('dict_config_logger')
@@ -222,3 +222,9 @@ def update_flattened_object(str_obj, prefix, flatten_dict):
     """function to update flattened object to dict variable"""
 
     flatten_dict.update({prefix: str_obj})
+
+
+def myconverter(o):
+    if isinstance(o, datetime.datetime):
+        o = o.isoformat()
+        return o
