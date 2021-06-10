@@ -20,18 +20,18 @@ fsspec>=0.8.5,<0.9.0
 
 numpy>= 1.19.5, < 1.20.0
 
-s3fs ~=2021.6.0
+s3fs
 
 requests~=2.25.1
 
 coverage>=5.5, < 5.6
 
-ddt~=1.4.2
+ddt~=1.4.2 , <1.5.0
 
-django-ses~=2.0.0
+django-ses>=2.0.0 , <2.1.0
 
 botocore~=1.19.63
 
-xlrd~=2.0.1
+xlrd >=2.0.1 , <2.1.0
 
-openpyxl~=3.0.7
+openpyxl >=3.0.7 , <3.1.0

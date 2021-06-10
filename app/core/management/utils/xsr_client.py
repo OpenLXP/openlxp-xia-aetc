@@ -1,5 +1,6 @@
 import io
 import logging
+import os
 
 import boto3
 import pandas as pd
@@ -11,7 +12,7 @@ def get_aws_details():
     """Get table data from the s3 bucket"""
 
     # get object and file (key) from bucket
-    bucket = 'xsraetc'
+    bucket = os.environ.get('BUCKET_NAME')
     file_name = 'AFCS_ETCA_Data.xlsx'
     client = boto3.client('s3')
     csv_obj = client.get_object(Bucket=bucket, Key=file_name)

@@ -417,3 +417,5 @@ class UtilsTests(TestSetUp):
             return_from_function = get_target_metadata_for_transformation()
             self.assertEqual(read_obj.return_value,
                              return_from_function)
+
+    # Test cases for NOTIFICATION
