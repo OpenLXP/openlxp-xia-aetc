@@ -18,7 +18,7 @@ from core.management.commands.validate_source_metadata import (
 from core.management.commands.validate_target_metadata import (
     get_target_validation_schema, validate_target_using_key)
 from core.management.utils.xss_client import read_json_data
-from core.models import MetadataLedger, XIAConfiguration
+from core.models import MetadataLedger, XIAConfiguration, XISConfiguration
 
 from .test_setup import TestSetUp
 
@@ -306,6 +306,9 @@ class CommandIntegration(TestSetUp):
             'target_metadata_key_hash')
         xiaConfig = XIAConfiguration(publisher='AETC')
         xiaConfig.save()
+        xisConfig = XISConfiguration(
+            xis_api_endpoint=self.xis_api_endpoint_url)
+        xisConfig.save()
         with patch('requests.post') as response_obj:
             response_obj.return_value = response_obj
             response_obj.status_code = 201
@@ -347,6 +350,9 @@ class CommandIntegration(TestSetUp):
             'target_metadata_key_hash')
         xiaConfig = XIAConfiguration(publisher='AETC')
         xiaConfig.save()
+        xisConfig = XISConfiguration(
+            xis_api_endpoint=self.xis_api_endpoint_url)
+        xisConfig.save()
         with patch('requests.post') as response_obj:
             response_obj.return_value = response_obj
             response_obj.status_code = 400

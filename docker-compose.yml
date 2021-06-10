@@ -35,9 +35,7 @@ services:
       REQUESTS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.pem'
       AWS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.pem'
       SECRET_KEY_VAL: "${SECRET_KEY_VAL}"
-      XIS_API_ENDPOINT: "${XIS_API_ENDPOINT}"
       XSR_API_ENDPOINT: "${XSR_API_ENDPOINT}"
-      TOKEN_URL: "${TOKEN_URL}"
     volumes:
       - ./app:/opt/app/openlxp-xia-aetc
     depends_on:

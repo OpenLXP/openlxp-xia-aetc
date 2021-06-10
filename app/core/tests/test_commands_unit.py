@@ -20,7 +20,7 @@ from core.management.commands.validate_source_metadata import (
     get_source_metadata_for_validation, validate_source_using_key)
 from core.management.commands.validate_target_metadata import (
     get_target_metadata_for_validation, validate_target_using_key)
-from core.models import MetadataLedger, XIAConfiguration
+from core.models import MetadataLedger, XIAConfiguration, XISConfiguration
 
 from .test_setup import TestSetUp
 
@@ -428,11 +428,16 @@ class CommandTests(TestSetUp):
                 patch('core.management.commands.load_target_metadata'
                       '.MetadataLedger.objects') as meta_obj, \
                 patch('requests.post') as response_obj, \
+                patch('core.management.utils.xis_client'
+                      '.XISConfiguration.objects') as xisCfg,\
                 patch('core.management.commands.load_target_metadata'
                       '.check_records_to_load_into_xis',
                       return_value=None) as mock_check_records_to_load:
             xiaConfig = XIAConfiguration(publisher='AETC')
             xiaCfg.first.return_value = xiaConfig
+            xisConfig = XISConfiguration(
+                xis_api_endpoint=self.xis_api_endpoint_url)
+            xisCfg.first.return_value = xisConfig
             response_obj.return_value = response_obj
             response_obj.status_code = 201
 

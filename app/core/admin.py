@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import XIAConfiguration
+from .models import XIAConfiguration, XISConfiguration
 
 # Register your models here.
 
@@ -16,3 +16,9 @@ class XIAConfigurationAdmin(admin.ModelAdmin):
               'source_metadata_schema',
               'source_target_mapping',
               'target_metadata_schema']
+
+
+@admin.register(XISConfiguration)
+class XISConfigurationAdmin(admin.ModelAdmin):
+    list_display = ('xis_api_endpoint',)
+    fields = ['xis_api_endpoint']

@@ -268,6 +268,8 @@ class TestSetUp(TestCase):
             "key1": ["val1"],
             "key2": ["val2"],
             "key3": ["val3"]}
+
+        self.xis_api_endpoint_url = 'http://openlxp-xis:8020/api/metadata/'
         return super().setUp()
 
     def tearDown(self):

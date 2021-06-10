@@ -35,9 +35,24 @@ class XIAConfiguration(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk and XIAConfiguration.objects.exists():
-            raise ValidationError('There is can be only one XIAConfiguration '
+            raise ValidationError('There can be only one XIAConfiguration '
                                   'instance')
         return super(XIAConfiguration, self).save(*args, **kwargs)
+
+
+class XISConfiguration(models.Model):
+    """Model for XIS Configuration """
+
+    xis_api_endpoint = models.CharField(
+        help_text='Enter the XIS API endpoint',
+        max_length=200
+    )
+
+    def save(self, *args, **kwargs):
+        if not self.pk and XISConfiguration.objects.exists():
+            raise ValidationError('There can be only one XISConfiguration '
+                                  'instance')
+        return super(XISConfiguration, self).save(*args, **kwargs)
 
 
 class MetadataLedger(models.Model):

@@ -21,7 +21,7 @@ from core.management.utils.xss_client import (
     get_aws_bucket_name, get_required_fields_for_validation,
     get_source_validation_schema, get_target_metadata_for_transformation,
     get_target_validation_schema)
-from core.models import XIAConfiguration
+from core.models import XIAConfiguration, XISConfiguration
 
 from .test_setup import TestSetUp
 
@@ -336,11 +336,15 @@ class UtilsTests(TestSetUp):
 
     # Test cases for XIS_CLIENT
 
-    def test_get_api_endpoint(self):
-        """Test to check if API endpoint is present"""
-        result_api_value = get_xis_api_endpoint()
-        logger.info(result_api_value)
-        self.assertTrue(result_api_value)
+    def test_get_xis_api_endpoint(self):
+        """Test to retrieve xis_api_endpoint from XIS configuration"""
+        with patch('core.management.utils.xis_client'
+                   '.XISConfiguration.objects') as xisCfg:
+            xisConfig = XISConfiguration(
+                xis_api_endpoint=self.xis_api_endpoint_url)
+            xisCfg.first.return_value = xisConfig
+            return_from_function = get_xis_api_endpoint()
+            self.assertEqual(xisConfig.xis_api_endpoint, return_from_function)
 
     # Test cases for XSR_CLIENT
 
