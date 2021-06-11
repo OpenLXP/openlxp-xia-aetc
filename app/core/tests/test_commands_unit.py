@@ -20,7 +20,10 @@ from core.management.commands.validate_source_metadata import (
     get_source_metadata_for_validation, validate_source_using_key)
 from core.management.commands.validate_target_metadata import (
     get_target_metadata_for_validation, validate_target_using_key)
-from core.models import MetadataLedger, XIAConfiguration, XISConfiguration
+from core.models import MetadataLedger, XIAConfiguration, XISConfiguration, \
+    ReceiverEmailConfiguration, SenderEmailConfiguration
+from core.management.commands.conformance_alerts import (
+    send_log_email)
 
 from .test_setup import TestSetUp
 
@@ -319,7 +322,7 @@ class CommandTests(TestSetUp):
 
             self.assertEqual(mock_store_target_valid_status.call_count, 0)
 
-    # # Test cases for load_target_metadata
+    # Test cases for load_target_metadata
 
     def test_renaming_xia_for_posting_to_xis(self):
         """Test for Renaming XIA column names to match with XIS column names"""
@@ -429,7 +432,7 @@ class CommandTests(TestSetUp):
                       '.MetadataLedger.objects') as meta_obj, \
                 patch('requests.post') as response_obj, \
                 patch('core.management.utils.xis_client'
-                      '.XISConfiguration.objects') as xisCfg,\
+                      '.XISConfiguration.objects') as xisCfg, \
                 patch('core.management.commands.load_target_metadata'
                       '.check_records_to_load_into_xis',
                       return_value=None) as mock_check_records_to_load:
@@ -450,3 +453,24 @@ class CommandTests(TestSetUp):
             post_data_to_xis(data)
             self.assertEqual(response_obj.call_count, 2)
             self.assertEqual(mock_check_records_to_load.call_count, 1)
+
+    # Test cases for conformance_alerts
+
+    def test_send_log_email(self):
+        """Test for function to send emails of log file to personas"""
+        with patch('core.management.commands.conformance_alerts'
+                   '.ReceiverEmailConfiguration') as receive_email_cfg, \
+                patch('core.management.commands.conformance_alerts'
+                      '.SenderEmailConfiguration') as sender_email_cfg, \
+                patch('core.management.commands.conformance_alerts'
+                      '.send_notifications', return_value=None
+                      ) as mock_send_notification:
+            receive_email = ReceiverEmailConfiguration(
+                email_address=self.receive_email_list)
+            receive_email_cfg.first.return_value = receive_email
+
+            send_email = SenderEmailConfiguration(
+                sender_email_address=self.sender_email)
+            sender_email_cfg.first.return_value = send_email
+            send_log_email()
+            self.assertEqual(mock_send_notification.call_count, 1)

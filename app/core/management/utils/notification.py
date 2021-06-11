@@ -54,11 +54,9 @@ def send_notifications(email, sender):
     # Replace sender@example.com with your "From" address.
     # This address must be verified with Amazon SES.
     SENDER = sender
-
     # Replace recipient@example.com with a "To" address. If your account
     # is still in the sandbox, this address must be verified.
     RECIPIENT = email
-
     # The subject line for the email.
     SUBJECT = "New Message From OpenLXP Portal"
 

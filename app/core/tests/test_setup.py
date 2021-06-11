@@ -270,6 +270,10 @@ class TestSetUp(TestCase):
             "key3": ["val3"]}
 
         self.xis_api_endpoint_url = 'http://openlxp-xis:8020/api/metadata/'
+
+        self.receive_email_list = ['receiver1@openlxp.com',
+                                   'receiver1@openlxp.com']
+        self.sender_email = "sender@openlxp.com"
         return super().setUp()
 
     def tearDown(self):
