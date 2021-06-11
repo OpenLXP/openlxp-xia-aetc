@@ -8,6 +8,7 @@ from django.db.utils import OperationalError
 from django.test import tag
 from django.utils import timezone
 
+from core.management.commands.conformance_alerts import send_log_email
 from core.management.commands.extract_source_metadata import (
     add_publisher_to_source, extract_metadata_using_key, get_source_metadata)
 from core.management.commands.load_target_metadata import (
@@ -20,10 +21,9 @@ from core.management.commands.validate_source_metadata import (
     get_source_metadata_for_validation, validate_source_using_key)
 from core.management.commands.validate_target_metadata import (
     get_target_metadata_for_validation, validate_target_using_key)
-from core.models import MetadataLedger, XIAConfiguration, XISConfiguration, \
-    ReceiverEmailConfiguration, SenderEmailConfiguration
-from core.management.commands.conformance_alerts import (
-    send_log_email)
+from core.models import (MetadataLedger, ReceiverEmailConfiguration,
+                         SenderEmailConfiguration, XIAConfiguration,
+                         XISConfiguration)
 
 from .test_setup import TestSetUp
 

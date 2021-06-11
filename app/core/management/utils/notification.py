@@ -3,6 +3,7 @@ from email.mime.application import MIMEApplication
 
 import boto3
 from botocore.exceptions import ClientError
+from django.conf import settings
 from django.core.mail import EmailMessage
 
 logger = logging.getLogger('dict_config_logger')
@@ -61,7 +62,7 @@ def send_notifications(email, sender):
     SUBJECT = "New Message From OpenLXP Portal"
 
     # The full path to the file that will be attached to the email.
-    ATTACHMENT = '/opt/app/openlxp-xia-aetc/core/management/logs/debug.log'
+    ATTACHMENT = getattr(settings, "LOG_PATH", None)
 
     # # The HTML body of the email.
     BODY_HTML = """\

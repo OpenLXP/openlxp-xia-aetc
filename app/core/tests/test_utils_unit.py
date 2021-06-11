@@ -6,6 +6,7 @@ import pandas as pd
 from ddt import data, ddt, unpack
 from django.test import tag
 
+from core.management.utils.notification import send_notifications
 from core.management.utils.xia_internal import (dict_flatten,
                                                 flatten_dict_object,
                                                 flatten_list_object,
@@ -16,15 +17,13 @@ from core.management.utils.xia_internal import (dict_flatten,
                                                 replace_field_on_target_schema,
                                                 update_flattened_object)
 from core.management.utils.xis_client import get_xis_api_endpoint
-from core.management.utils.xsr_client import (read_source_file,
-                                              get_list_table_names)
-from core.management.utils.notification import send_notifications
+from core.management.utils.xsr_client import (get_list_table_names,
+                                              read_source_file)
 from core.management.utils.xss_client import (
     get_aws_bucket_name, get_required_fields_for_validation,
     get_source_validation_schema, get_target_metadata_for_transformation,
     get_target_validation_schema)
-from core.models import (XIAConfiguration, XISConfiguration)
-
+from core.models import XIAConfiguration, XISConfiguration
 
 from .test_setup import TestSetUp
 

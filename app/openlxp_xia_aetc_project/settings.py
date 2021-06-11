@@ -32,6 +32,7 @@ mimetypes.add_type("text/css", ".css", True)
 ALLOWED_HOSTS = ['*']
 
 # Application definition
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -97,6 +98,7 @@ REST_FRAMEWORK = {
 
 EMAIL_BACKEND = 'django_ses.SESBackend'
 
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -134,6 +136,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+LOG_PATH = '/etc/debug.log'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -155,8 +158,7 @@ LOGGING = {
         'file_logs': {
             'level': 'WARNING',
             'class': 'logging.FileHandler',
-            'filename': '/opt/app/openlxp-xia-aetc/core/management/logs/debug'
-                        '.log',
+            'filename': LOG_PATH,
             'formatter': 'simpleRe',
         },
 
