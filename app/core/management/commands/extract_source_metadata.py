@@ -13,8 +13,6 @@ from core.management.utils.xsr_client import read_source_file
 from core.models import MetadataLedger
 
 logger = logging.getLogger('dict_config_logger')
-file_handler = logging.FileHandler('/opt/app/openlxp-xia-aetc/core/management'
-                                   '/logs/debug.log', mode='w')
 
 
 def get_source_metadata():
