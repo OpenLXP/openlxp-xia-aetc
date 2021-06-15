@@ -98,6 +98,3 @@ def send_notifications(email, sender):
         except ClientError as e:
             logger.error(e.response['Error']['Message'])
             continue
-        # else:
-        #     logger.info("Email sent! Message ID:"),
-        #     logger.info(HttpResponse('%s' % res))
