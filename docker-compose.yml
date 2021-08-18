@@ -36,11 +36,63 @@ services:
       REQUESTS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.pem'
       AWS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.pem'
       SECRET_KEY_VAL: "${SECRET_KEY_VAL}"
-      XSR_API_ENDPOINT: "${XSR_API_ENDPOINT}"
+      LOG_PATH: "${LOG_PATH}"
+      CELERY_BROKER_URL: "${CELERY_BROKER_URL}"
+      CELERY_RESULT_BACKEND: "${CELERY_RESULT_BACKEND}"
     volumes:
       - ./app:/opt/app/openlxp-xia-aetc
     depends_on:
       - db_xia_aetc
+    networks:
+      - openlxp
+  redis:
+    image: redis:alpine
+    networks:
+      - openlxp
+
+  celery:
+    build:
+      context: .
+    command: celery -A openlxp_xia_aetc_project worker -l info -P solo
+    volumes:
+      - ./app:/opt/app/openlxp-xia-aetc
+    environment:
+      REQUESTS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.pem'
+      AWS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.pem'
+    env_file:
+      - ./.env
+    depends_on:
+      - db_xia_aetc
+      - redis
+      - app_xia_aetc
+    networks:
+      - openlxp
+    restart: on-failure
+
+  celery-beat:
+    build:
+      context: .
+    command: celery -A openlxp_xia_aetc_project beat --scheduler django_celery_beat.schedulers:DatabaseScheduler --loglevel=info --pidfile=/tmp/celerybeat.pid
+    volumes:
+      - ./app:/opt/app/openlxp-xia-aetc
+    environment:
+      REQUESTS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.pem'
+      AWS_CA_BUNDLE: '/etc/ssl/certs/ca-certificates.pem'
+    env_file:
+      - ./.env
+    depends_on:
+      - db_xia_aetc
+      - redis
+      - app_xia_aetc
+    networks:
+      - openlxp
+    restart: on-failure
+
+  flower:
+    image: mher/flower:0.9.7
+    command: [ "flower", "--broker=redis://redis:6379/0", "--port=8888" ]
+    ports:
+      - 8888:8888
     networks:
       - openlxp
 
