@@ -94,7 +94,9 @@ To run this project, you will need to add the following environment variables to
 
 1. On the Admin page, log in with the admin credentials 
 
-2. `Add xis configuration`: Configure Experience Index Services (XIS): 
+2. `XSR configuration`: Make sure to upload AETC Metadata file in S3 bucket. 
+
+3. `Add xis configuration`: Configure Experience Index Services (XIS): 
 
 `Xis metadata api endpoint`: API endpoint for XIS where metadata will get stored.
 
@@ -110,7 +112,7 @@ Example:
     (Note: Replace localhost with the XIS Host)
 
 
-3.  `Add xia configuration` : Configure Experience Index Agents(XIA):
+4.  `Add xia configuration` : Configure Experience Index Agents(XIA):
 
     `Publisher`: Agent Name
     
@@ -124,7 +126,7 @@ Example:
         In this case, upload schema files into the S3 bucket. )
 
 
-4. `Add metadata field overwrite`: Here, we can add new fields and their values or overwrite values for existing fields.
+5. `Add metadata field overwrite`: Here, we can add new fields and their values or overwrite values for existing fields.
 
     `Field name`: Add new or existing field Name
     
@@ -134,9 +136,9 @@ Example:
     
     `Overwrite`: Check the box if existing values need to be overwritten.
 
-5. `Add sender email configuration`: Configure the sender email address from which conformance alerts are sent.
+6. `Add sender email configuration`: Configure the sender email address from which conformance alerts are sent.
 
-6. `Add receiver email configuration` : 
+7. `Add receiver email configuration` : 
 Add an email list to send conformance alerts. When the email gets added, an email verification email will get sent out. In addition, conformance alerts will get sent to only verified email IDs.
 
 
